@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest>
+  <control namespace="AutoSplitText" constructor="AutoSplitTextControl" version="0.0.1"
+    display-name-key="AutoSplitTextControl"
+    description-key="Splits text across two single-line text fields when the character limit is reached"
+    control-type="standard">
+    <type-group name="textFields">
+      <type>SingleLine.Text</type>
+    </type-group>
+    <property name="field1" display-name-key="Field 1" description-key="First text field"
+      of-type="SingleLine.Text" usage="bound" required="false" />
+    <property name="field2" display-name-key="Second Text Field"
+      description-key="The second single-line text field for overflow" of-type-group="textFields"
+      usage="bound" required="true" />
+    <property name="targetFieldLogicalName" display-name-key="Target Field Logical Name"
+      description-key="The logical name of the Dataverse field to store Field 2 data"
+      of-type="SingleLine.Text" usage="input" required="true" />
+    <property name="maxLength" display-name-key="Maximum Length"
+      description-key="The maximum number of characters allowed in Field 1 before overflowing to Field 2"
+      of-type="Whole.None" usage="input" required="true" />
+    <resources>
+      <css path="AutoSplitTextControl.css" order="1" />
+      <code path="index.ts" order="1" />
+    </resources>
+  </control>
+</manifest>
