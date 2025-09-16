@@ -10,7 +10,7 @@ export class AutoSplitTextControl implements ComponentFramework.StandardControl<
     private _field1Value: string;
     private _field2Value: string;
     private _field1MaxLength: number;
-    private _field2MaxLength = 4000; // Removed : number to fix ESLint error
+    private _field2MaxLength = 4000; 
     private _notifyOutputChanged: () => void;
 
     public init(context: ComponentFramework.Context<IInputs>, notifyOutputChanged: () => void, state: ComponentFramework.Dictionary, container: HTMLDivElement): void {
@@ -18,25 +18,18 @@ export class AutoSplitTextControl implements ComponentFramework.StandardControl<
         this._notifyOutputChanged = notifyOutputChanged;
         this._container = container;
 
-        // Get maxLength for field1, default to 4000 if invalid, cap at 4000
         const maxLengthRaw = context.parameters.maxLength?.raw;
         this._field1MaxLength = (maxLengthRaw && !isNaN(maxLengthRaw) && maxLengthRaw > 0)
             ? Math.min(maxLengthRaw, 4000)
             : 4000;
 
-        console.log("init maxLength:", this._field1MaxLength);
-
-        // Create wrapper for field1
+        console.log("init maxLength:", this._field1MaxLength);d1
         const field1Wrapper = document.createElement("div");
         field1Wrapper.className = "input-wrapper";
-
-        // Create label for field1
         const field1Label = document.createElement("label");
         field1Label.textContent = "Primary Text";
         field1Label.htmlFor = "field1-input";
         field1Label.className = "input-label";
-
-        // Create input for field1
         this._field1Input = document.createElement("textarea");
         this._field1Input.id = "field1-input";
         this._field1Input.className = "text-input";
@@ -45,27 +38,27 @@ export class AutoSplitTextControl implements ComponentFramework.StandardControl<
         this._field1Input.addEventListener("input", this.onInput.bind(this));
         this._field1Input.placeholder = `Enter text (max ${this._field1MaxLength} characters)`;
 
-        // Create counter for field1
+
         this._field1Counter = document.createElement("span");
         this._field1Counter.className = "char-counter";
         this._field1Counter.textContent = `${this._field1Input.value.length}/${this._field1MaxLength}`;
 
-        // Append label, input, and counter to field1 wrapper
+    
         field1Wrapper.appendChild(field1Label);
         field1Wrapper.appendChild(this._field1Input);
         field1Wrapper.appendChild(this._field1Counter);
 
-        // Create wrapper for field2
+
         const field2Wrapper = document.createElement("div");
         field2Wrapper.className = "input-wrapper";
 
-        // Create label for field2
+  
         const field2Label = document.createElement("label");
         field2Label.textContent = "Overflow Text";
         field2Label.htmlFor = "field2-input";
         field2Label.className = "input-label";
 
-        // Create input for field2
+
         this._field2Input = document.createElement("textarea");
         this._field2Input.id = "field2-input";
         this._field2Input.className = "text-input";
@@ -74,21 +67,21 @@ export class AutoSplitTextControl implements ComponentFramework.StandardControl<
         this._field2Input.addEventListener("input", this.onInput.bind(this));
         this._field2Input.placeholder = `Overflow text (max ${this._field2MaxLength} characters)`;
 
-        // Create counter for field2
+     
         this._field2Counter = document.createElement("span");
         this._field2Counter.className = "char-counter";
         this._field2Counter.textContent = `${this._field2Input.value.length}/${this._field2MaxLength}`;
 
-        // Append label, input, and counter to field2 wrapper
+  
         field2Wrapper.appendChild(field2Label);
         field2Wrapper.appendChild(this._field2Input);
         field2Wrapper.appendChild(this._field2Counter);
 
-        // Append wrappers to container
+    
         this._container.appendChild(field1Wrapper);
         this._container.appendChild(field2Wrapper);
 
-        // Initialize values
+
         this._field1Value = this._field1Input.value;
         this._field2Value = this._field2Input.value;
     }
